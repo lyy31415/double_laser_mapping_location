@@ -1,0 +1,14 @@
+<launch>
+
+  <include file="$(find yocs_velocity_smoother)/launch/standalone.launch">
+  </include>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <rosparam file="$(find mbot_navigation)/config/mbot/guyue/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find mbot_navigation)/config/mbot/guyue/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find mbot_navigation)/config/mbot/guyue/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mbot_navigation)/config/mbot/guyue/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mbot_navigation)/config/mbot/guyue/base_local_planner_params.yaml" command="load" />
+  </node>
+  
+</launch>

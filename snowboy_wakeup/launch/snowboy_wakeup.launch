@@ -1,0 +1,46 @@
+<!--
+Copyright: 2016-2019 wwww.corvin.cn ROS小课堂
+Author: corvin
+Description:
+    该启动文件是snowboy唤醒的启动文件,将启动两个节点分别是arduio_capture,
+    用于从麦克风获取音频数据,并将数据发送到指定的话题上.启动的snowboy_wakeup
+    节点就是订阅麦克风数据,取出后然后进行检查音频数据中是否存在指定的唤醒词.
+    当检测到唤醒词就往指定的话题中发送一条唤醒成功的消息.后续的其他流程,可以
+    订阅该唤醒成功的话题,当发现话题中有指定的唤醒成功消息,就可以得知系统被成
+    功唤醒了,这样就可以进行后续的其他语音处理流程了.
+History:
+    20191009:init this file.
+-->
+<launch>
+    <arg name="namespace" default="voice_system" />
+    <arg name="AUDIO_Topic" default="audio_data" />
+    <arg name="WAKEUP_Topic" default="voiceWakeup" />
+
+    <group ns="$(arg namespace)">
+        <node pkg="audio_capture" type="audio_capture" name="audio_capture" output="screen" required="true">
+            <param name="format" value="wave" />
+            <param name="channels" value="1" />
+            <param name="depth" value="16" />
+            <param name="sample_rate" value="16000" />
+            <remap from="audio" to="$(arg AUDIO_Topic)" />
+        </node>
+
+        <node pkg="snowboy_wakeup" type="wakeup_detector" name="snowboy_wakeup" output="screen" respawn="true">
+            <param name="resource_filename" value="$(find snowboy_wakeup)/resources/common.res" />
+            <param name="model_filename" value="$(find snowboy_wakeup)/resources/Iegg_wakeup.pmdl" />
+            <param name="beep_filename" value="$(find snowboy_wakeup)/resources/ding.wav" />
+            <param name="sensitivity_str" value="0.3" />
+            <param name="audio_gain" value="1.0" />
+            <param name="wakeup_topic" value="$(arg WAKEUP_Topic)" />
+            <param name="audio_topic" value="$(arg AUDIO_Topic)" />
+        </node>
+    </group>
+
+        <node pkg="robot_voice" type="iat_publish" name="iat_publish" output="screen" respawn="true">
+        </node>
+
+        <node pkg="robot_voice" type="voice_assistant" name="voice_assistant" output="screen" respawn="true">
+        </node>
+
+</launch>
+

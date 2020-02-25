@@ -1,0 +1,6 @@
+image: /home/lyy/catkin_ws/src/mbot_navigation/maps/home011.pgm
+resolution: 0.050000
+origin: [-5.616353, -7.784201, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196

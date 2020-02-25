@@ -1,0 +1,26 @@
+# Coordinate frame and tf parameters
+#global_frame: map
+#robot_base_frame: base_footprint
+#transform_tolerance: 0.2
+
+# Rate parameters
+#update_frequency: 5.0
+#publish_frequency: 5.0
+
+# Map management parameters
+#rolling_window: true
+#always_send_full_costmap: false
+
+
+obstacle_range: 3.0
+raytrace_range: 3.5
+
+#footprint: [[-0.15, -0.15], [-0.15, 0.15], [0.15, 0.15], [0.15, -0.15]]
+robot_radius: 0.17
+
+inflation_radius: 1.75
+cost_scaling_factor: 2.58
+
+map_type: costmap
+observation_sources: scan
+scan: {sensor_frame: laser_frame, data_type: LaserScan, topic: scan, marking: true, clearing: true}

@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+  <include file="$(find serialport)/launch/dreamcar_state_pub.launch"/>
+  <!--include file="$(find yocs_velocity_smoother)/launch/standalone.launch"/-->
+
+  <node name="serialport_node" pkg="serialport" type="serialport_node" output="screen"/>
+
+  <node name="baselink_laserframe_broadcaster" pkg="tf" type="static_transform_publisher" args="0 0 0.07 0 0 0 /base_link /laser_frame 100" />
+</launch>
