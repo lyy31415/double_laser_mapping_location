@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot name="agv" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find agv_urdf)/urdf/gazebo/agv_base_gazebo.xacro" />
+    <xacro:include filename="$(find sick_tim)/urdf/sick_tim.urdf.xacro" />
+
+    <xacro:property name="laser1_offset_x" value="0.35737" />
+    <xacro:property name="laser1_offset_y" value="-0.19848" />
+    <xacro:property name="laser1_offset_z" value="0.025" />
+    <xacro:property name="laser1_angle_z" value="-0.754893" />
+    <xacro:property name="laser2_offset_x" value="-0.35737" />
+    <xacro:property name="laser2_offset_y" value="0.19848" />
+    <xacro:property name="laser2_offset_z" value="0.025" />
+    <xacro:property name="laser2_angle_z" value="2.386699" />
+
+    <mbot_base_gazebo/>
+
+    <!-- lidar -->
+    <joint name="laser1_mount_joint" type="fixed">
+        <origin xyz="${laser1_offset_x} ${laser1_offset_y} ${laser1_offset_z}" rpy="0 0 ${laser1_angle_z}" />
+        <parent link="base_link"/>
+        <child link="laser1_mount_link"/>
+    </joint>
+
+    <xacro:sick_tim551 name="laser1" ros_topic="scan1_sim" />
+
+    <joint name="laser2_mount_joint" type="fixed">
+        <origin xyz="${laser2_offset_x} ${laser2_offset_y} ${laser2_offset_z}" rpy="0 0 ${laser2_angle_z}" />
+        <parent link="base_link"/>
+        <child link="laser2_mount_link"/>
+    </joint>
+
+    <xacro:sick_tim551 name="laser2" ros_topic="scan2_sim" />
+
+
+</robot>

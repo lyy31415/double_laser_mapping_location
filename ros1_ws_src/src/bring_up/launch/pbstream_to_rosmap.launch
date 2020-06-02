@@ -1,0 +1,9 @@
+<launch>
+  <node name="cartographer_pbstream_to_ros_map" pkg="cartographer_ros"
+      type="cartographer_pbstream_to_ros_map" args="
+          -pbstream_filename /home/lyy/ros1_ws/src/bring_up/maps/map02.pbstream
+          -map_filestem /home/lyy/ros1_ws/src/bring_up/maps/map02
+          -resolution 0.03"
+      output="screen">
+  </node>
+</launch>

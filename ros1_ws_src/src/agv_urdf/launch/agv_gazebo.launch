@@ -1,0 +1,33 @@
+<launch>
+	<arg name="x_pos" default="3.0"/>
+	<arg name="y_pos" default="3.0"/>
+	<arg name="z_pos" default="1.0"/>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find agv_urdf)/worlds/agv_world1.world"/>
+		<arg name="paused" value="false"/>
+		<arg name="use_sim_time" value="true"/>
+		<arg name="gui" value="true"/>
+		<arg name="headless" value="false"/>
+		<arg name="debug" value="false"/>
+	</include>
+	
+	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find agv_urdf)/urdf/gazebo/agv_with_laser_gazebo.xacro'"/>
+
+	<!-- <arg name="gui" default="true" /> -->
+
+    <!-- 设置GUI参数，显示关节控制插件 -->
+	<!-- <param name="use_gui" value="$(arg gui)"/> -->
+
+    <!-- 运行joint_state_publisher节点，发布机器人的关节状态  -->
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+	<!-- 运行robot_state_publisher节点，发布tf  -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+	<node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model agv -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+	<!-- 运行rviz可视化界面 -->
+	<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find agv_urdf)/config/agv_urdf.rviz" required="true"/> -->
+	
+</launch>

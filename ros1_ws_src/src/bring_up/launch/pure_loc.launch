@@ -1,0 +1,20 @@
+
+<launch>
+  <param name="/use_sim_time" value="true" />
+  <!--arg name="map" default="map02.yaml" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find bring_up)/maps/$(arg map)" /-->
+ 
+   <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory /home/lyy/ros1_ws/src/bring_up/configuration_files
+          -configuration_basename lyy_backpack_2d_localization.lua
+          -load_state_filename /home/lyy/ros1_ws/src/bring_up/maps/map02.pbstream"
+      output="screen">
+    <remap from="/scan_1" to="/scan_1" />
+    <remap from="/scan_2" to="/scan_2" />
+   </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" required="true"  
+      args="-d $(find cartographer_ros)/configuration_files/demo_2d.rviz" />  
+</launch>
+

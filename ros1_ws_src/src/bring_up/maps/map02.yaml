@@ -1,0 +1,6 @@
+image: /home/lyy/ros1_ws/src/bring_up/maps/map02.pgm
+resolution: 0.030000
+origin: [-11.056141, -11.005128, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196

@@ -1,0 +1,19 @@
+<launch>
+    <include file="$(find agv_urdf)/launch/agv.launch" />
+   
+    <node pkg="agv_urdf" name="agv_odom_bringup" type="agv_odom_bringup" output="screen">
+        <param name="sensor_link" type="string" value="/laser1_link" />
+        <param name="odom_topic_pub" type="string" value="/odom" />
+        <param name="scan_topic_sub" type="string" value="/scan" />
+        <param name="motion_state_topic_sub" type="string" value="/motion_state" />
+
+        <!-- <param name="left_wheel_radius" type="double" value="0.0939013" />
+        <param name="right_wheel_radius" type="double" value="0.0935378" />
+        <param name="wheel_base" type="double" value="0.544804" /> -->
+        <param name="left_wheel_radius" type="double" value="0.09" />
+        <param name="right_wheel_radius" type="double" value="0.09" />
+        <param name="wheel_base" type="double" value="0.535" />
+        
+    </node>
+
+</launch>

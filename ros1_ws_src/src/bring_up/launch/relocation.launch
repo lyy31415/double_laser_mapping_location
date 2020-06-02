@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="loop_closure_check" type="loop_closure_node" name="loop_closure_node" output="screen">
+        <!-- <param name="min_particles" value="1000"/> -->
+    </node>
+
+</launch>
